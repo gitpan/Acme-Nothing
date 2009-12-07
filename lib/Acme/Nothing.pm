@@ -3,12 +3,14 @@ package Acme::Nothing;
 use warnings;
 use strict;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 open my $fh, '<', \$VERSION;
 close $fh;
 
-@INC = sub {
+@INC = \ &nothing;
+
+sub nothing {
     local *__ANON__ = $_[1];
     $INC{ $_[1] } = $_[1];
     open my $fh, '<', \!$[ or die;
